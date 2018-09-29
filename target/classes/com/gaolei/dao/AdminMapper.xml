@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaolei.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.gaolei.entity.Admin">
+    <id column="admin_id" jdbcType="VARCHAR" property="adminId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    admin_id, name, password
+  </sql>
+  <!-- 查询用户ByName-->
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from admin
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where admin_id = #{adminId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from admin
+    where admin_id = #{adminId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gaolei.entity.Admin">
+    insert into admin (admin_id, name, password
+      )
+    values (#{adminId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gaolei.entity.Admin">
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gaolei.entity.Admin">
+    update admin
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gaolei.entity.Admin">
+    update admin
+    set name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where admin_id = #{adminId,jdbcType=VARCHAR}
+  </update>
+</mapper>

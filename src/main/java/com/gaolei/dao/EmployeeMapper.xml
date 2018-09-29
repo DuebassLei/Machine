@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaolei.dao.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.gaolei.entity.Employee">
+    <id column="emp_id" jdbcType="VARCHAR" property="empId" />
+    <result column="sal_id" jdbcType="VARCHAR" property="salId" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="salary" jdbcType="REAL" property="salary" />
+    <result column="start_time" jdbcType="TIME" property="startTime" />
+    <result column="dept" jdbcType="VARCHAR" property="dept" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="shop" jdbcType="VARCHAR" property="shop" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    emp_id, sal_id, id, name, phone, address, position, salary, start_time, dept, age, 
+    sex, shop
+  </sql>
+  <select id="selectAllEmployee" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from employee
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employee
+    where emp_id = #{empId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from employee
+    where emp_id = #{empId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gaolei.entity.Employee">
+    insert into employee (emp_id, sal_id, id, 
+      name, phone, address, 
+      position, salary, start_time, 
+      dept, age, sex, shop
+      )
+    values (#{empId,jdbcType=VARCHAR}, #{salId,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{salary,jdbcType=REAL}, #{startTime,jdbcType=TIME}, 
+      #{dept,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{shop,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertEmployee" parameterType="com.gaolei.entity.Employee">
+    insert into employee (emp_id,id,name, phone, address,position, salary, age, sex)
+    values (#{empId,jdbcType=VARCHAR},#{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},
+    #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+     #{position,jdbcType=VARCHAR}, #{salary,jdbcType=REAL},
+     #{age,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}
+    )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.gaolei.entity.Employee">
+    insert into employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="salId != null">
+        sal_id,
+      </if>
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="salary != null">
+        salary,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="dept != null">
+        dept,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="shop != null">
+        shop,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        #{empId,jdbcType=VARCHAR},
+      </if>
+      <if test="salId != null">
+        #{salId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=REAL},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIME},
+      </if>
+      <if test="dept != null">
+        #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="shop != null">
+        #{shop,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gaolei.entity.Employee">
+    update employee
+    <set>
+      <if test="salId != null">
+        sal_id = #{salId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null">
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        salary = #{salary,jdbcType=REAL},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIME},
+      </if>
+      <if test="dept != null">
+        dept = #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="shop != null">
+        shop = #{shop,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where emp_id = #{empId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gaolei.entity.Employee">
+    update employee
+    set sal_id = #{salId,jdbcType=VARCHAR},
+      id = #{id,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=REAL},
+      start_time = #{startTime,jdbcType=TIME},
+      dept = #{dept,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=VARCHAR},
+      shop = #{shop,jdbcType=VARCHAR}
+    where emp_id = #{empId,jdbcType=VARCHAR}
+  </update>
+</mapper>

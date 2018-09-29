@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaolei.dao.ShopMapper">
+  <resultMap id="BaseResultMap" type="com.gaolei.entity.Shop">
+    <id column="shop_id" jdbcType="VARCHAR" property="shopId" />
+    <result column="emp_id" jdbcType="VARCHAR" property="empId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="cus_id" jdbcType="VARCHAR" property="cusId" />
+    <result column="worehouse_id" jdbcType="VARCHAR" property="worehouseId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="kind" jdbcType="VARCHAR" property="kind" />
+    <result column="make_time" jdbcType="DATE" property="makeTime" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    shop_id, emp_id, order_id, cus_id, worehouse_id, name, price, info, status, count, 
+    kind, make_time, address
+  </sql>
+  <!--查询所有商品信息 -->
+  <select id="selectAllShop" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop
+  </select>
+  <!--按种类查询商品信息 -->
+  <select id="selectShopKind" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop
+    WHERE kind =#{kind,jdbcType=VARCHAR}
+  </select>
+  <!-- 按仓库名称查询商品 -->
+  <select id="selectByWhName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop
+    WHERE worehouse_id = #{worehouseId,jdbcType=VARCHAR}
+  </select>
+
+  <!--按商品名称查询商品信息 -->
+  <select id="selectShopByName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from shop
+    WHERE name = #{name,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from shop
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gaolei.entity.Shop">
+    insert into shop (shop_id, emp_id, order_id, 
+      cus_id, worehouse_id, name, 
+      price, info, status, count, 
+      kind, make_time, address
+      )
+    values (#{shopId,jdbcType=VARCHAR}, #{empId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{cusId,jdbcType=VARCHAR}, #{worehouseId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{price,jdbcType=INTEGER}, #{info,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{count,jdbcType=INTEGER}, 
+      #{kind,jdbcType=VARCHAR}, #{makeTime,jdbcType=DATE}, #{address,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gaolei.entity.Shop">
+    insert into shop
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="cusId != null">
+        cus_id,
+      </if>
+      <if test="worehouseId != null">
+        worehouse_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="info != null">
+        info,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="kind != null">
+        kind,
+      </if>
+      <if test="makeTime != null">
+        make_time,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shopId != null">
+        #{shopId,jdbcType=VARCHAR},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="cusId != null">
+        #{cusId,jdbcType=VARCHAR},
+      </if>
+      <if test="worehouseId != null">
+        #{worehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="kind != null">
+        #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="makeTime != null">
+        #{makeTime,jdbcType=DATE},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gaolei.entity.Shop">
+    update shop
+    <set>
+      <if test="empId != null">
+        emp_id = #{empId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="cusId != null">
+        cus_id = #{cusId,jdbcType=VARCHAR},
+      </if>
+      <if test="worehouseId != null">
+        worehouse_id = #{worehouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="info != null">
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="kind != null">
+        kind = #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="makeTime != null">
+        make_time = #{makeTime,jdbcType=DATE},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gaolei.entity.Shop">
+    update shop
+    set emp_id = #{empId,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      cus_id = #{cusId,jdbcType=VARCHAR},
+      worehouse_id = #{worehouseId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      info = #{info,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIT},
+      count = #{count,jdbcType=INTEGER},
+      kind = #{kind,jdbcType=VARCHAR},
+      make_time = #{makeTime,jdbcType=DATE},
+      address = #{address,jdbcType=VARCHAR}
+    where shop_id = #{shopId,jdbcType=VARCHAR}
+  </update>
+</mapper>

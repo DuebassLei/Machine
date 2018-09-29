@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaolei.dao.SummaryMapper">
+  <resultMap id="BaseResultMap" type="com.gaolei.entity.Summary">
+    <id column="sum_id" jdbcType="VARCHAR" property="sumId" />
+    <result column="order_price" jdbcType="REAL" property="orderPrice" />
+    <result column="order_count" jdbcType="REAL" property="orderCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sum_id, order_price, order_count
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from summary
+    where sum_id = #{sumId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from summary
+    where sum_id = #{sumId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gaolei.entity.Summary">
+    insert into summary (sum_id, order_price, order_count
+      )
+    values (#{sumId,jdbcType=VARCHAR}, #{orderPrice,jdbcType=REAL}, #{orderCount,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gaolei.entity.Summary">
+    insert into summary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sumId != null">
+        sum_id,
+      </if>
+      <if test="orderPrice != null">
+        order_price,
+      </if>
+      <if test="orderCount != null">
+        order_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sumId != null">
+        #{sumId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPrice != null">
+        #{orderPrice,jdbcType=REAL},
+      </if>
+      <if test="orderCount != null">
+        #{orderCount,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gaolei.entity.Summary">
+    update summary
+    <set>
+      <if test="orderPrice != null">
+        order_price = #{orderPrice,jdbcType=REAL},
+      </if>
+      <if test="orderCount != null">
+        order_count = #{orderCount,jdbcType=REAL},
+      </if>
+    </set>
+    where sum_id = #{sumId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gaolei.entity.Summary">
+    update summary
+    set order_price = #{orderPrice,jdbcType=REAL},
+      order_count = #{orderCount,jdbcType=REAL}
+    where sum_id = #{sumId,jdbcType=VARCHAR}
+  </update>
+</mapper>

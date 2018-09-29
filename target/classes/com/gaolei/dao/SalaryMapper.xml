@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaolei.dao.SalaryMapper">
+  <resultMap id="BaseResultMap" type="com.gaolei.entity.Salary">
+    <id column="sal_id" jdbcType="VARCHAR" property="salId" />
+    <result column="emp_id" jdbcType="VARCHAR" property="empId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="money" jdbcType="REAL" property="money" />
+    <result column="count" jdbcType="REAL" property="count" />
+    <result column="time" jdbcType="DATE" property="time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sal_id, emp_id, name, position, money, count, time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from salary
+    where sal_id = #{salId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from salary
+    where sal_id = #{salId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gaolei.entity.Salary">
+    insert into salary (sal_id, emp_id, name, 
+      position, money, count, time
+      )
+    values (#{salId,jdbcType=VARCHAR}, #{empId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{money,jdbcType=REAL}, #{count,jdbcType=REAL}, #{time,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gaolei.entity.Salary">
+    insert into salary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="salId != null">
+        sal_id,
+      </if>
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="salId != null">
+        #{salId,jdbcType=VARCHAR},
+      </if>
+      <if test="empId != null">
+        #{empId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=REAL},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=REAL},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gaolei.entity.Salary">
+    update salary
+    <set>
+      <if test="empId != null">
+        emp_id = #{empId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=REAL},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=REAL},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=DATE},
+      </if>
+    </set>
+    where sal_id = #{salId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gaolei.entity.Salary">
+    update salary
+    set emp_id = #{empId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      money = #{money,jdbcType=REAL},
+      count = #{count,jdbcType=REAL},
+      time = #{time,jdbcType=DATE}
+    where sal_id = #{salId,jdbcType=VARCHAR}
+  </update>
+</mapper>

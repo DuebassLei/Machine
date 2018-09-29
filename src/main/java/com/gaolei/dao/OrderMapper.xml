@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaolei.dao.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.gaolei.entity.Order">
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="sum_id" jdbcType="VARCHAR" property="sumId" />
+    <result column="cus_id" jdbcType="VARCHAR" property="cusId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="postcode" jdbcType="INTEGER" property="postcode" />
+    <result column="make_time" jdbcType="TIME" property="makeTime" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="price" jdbcType="REAL" property="price" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, sum_id, cus_id, name, info, address, postcode, make_time, phone, price
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gaolei.entity.Order">
+    insert into order (order_id, sum_id, cus_id, 
+      name, info, address, 
+      postcode, make_time, phone, 
+      price)
+    values (#{orderId,jdbcType=VARCHAR}, #{sumId,jdbcType=VARCHAR}, #{cusId,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{postcode,jdbcType=INTEGER}, #{makeTime,jdbcType=TIME}, #{phone,jdbcType=VARCHAR}, 
+      #{price,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gaolei.entity.Order">
+    insert into order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="sumId != null">
+        sum_id,
+      </if>
+      <if test="cusId != null">
+        cus_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="info != null">
+        info,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="postcode != null">
+        postcode,
+      </if>
+      <if test="makeTime != null">
+        make_time,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="sumId != null">
+        #{sumId,jdbcType=VARCHAR},
+      </if>
+      <if test="cusId != null">
+        #{cusId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        #{postcode,jdbcType=INTEGER},
+      </if>
+      <if test="makeTime != null">
+        #{makeTime,jdbcType=TIME},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gaolei.entity.Order">
+    update order
+    <set>
+      <if test="sumId != null">
+        sum_id = #{sumId,jdbcType=VARCHAR},
+      </if>
+      <if test="cusId != null">
+        cus_id = #{cusId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="info != null">
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        postcode = #{postcode,jdbcType=INTEGER},
+      </if>
+      <if test="makeTime != null">
+        make_time = #{makeTime,jdbcType=TIME},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=REAL},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gaolei.entity.Order">
+    update order
+    set sum_id = #{sumId,jdbcType=VARCHAR},
+      cus_id = #{cusId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      info = #{info,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=INTEGER},
+      make_time = #{makeTime,jdbcType=TIME},
+      phone = #{phone,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

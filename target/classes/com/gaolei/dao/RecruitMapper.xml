@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gaolei.dao.RecruitMapper">
+  <resultMap id="BaseResultMap" type="com.gaolei.entity.Recruit">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="skill" jdbcType="VARCHAR" property="skill" />
+    <result column="hobby" jdbcType="VARCHAR" property="hobby" />
+    <result column="experience" jdbcType="VARCHAR" property="experience" />
+    <result column="apply_position" jdbcType="VARCHAR" property="applyPosition" />
+    <result column="start_time" jdbcType="DATE" property="startTime" />
+    <result column="end_time" jdbcType="DATE" property="endTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, age, sex, address, email, phone, skill, hobby, experience, apply_position, 
+    start_time, end_time
+  </sql>
+  <!-- 查看所有的招聘信息表Recruit -->
+  <select id="selectAllRecruit"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recruit
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from recruit
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from recruit
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.gaolei.entity.Recruit">
+    insert into recruit (id, name, age, 
+      sex, address, email, 
+      phone, skill, hobby, 
+      experience, apply_position, start_time, 
+      end_time)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{sex,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{skill,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, 
+      #{experience,jdbcType=VARCHAR}, #{applyPosition,jdbcType=VARCHAR}, #{startTime,jdbcType=DATE}, 
+      #{endTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.gaolei.entity.Recruit">
+    insert into recruit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="skill != null">
+        skill,
+      </if>
+      <if test="hobby != null">
+        hobby,
+      </if>
+      <if test="experience != null">
+        experience,
+      </if>
+      <if test="applyPosition != null">
+        apply_position,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="skill != null">
+        #{skill,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="experience != null">
+        #{experience,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPosition != null">
+        #{applyPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gaolei.entity.Recruit">
+    update recruit
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="skill != null">
+        skill = #{skill,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="experience != null">
+        experience = #{experience,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPosition != null">
+        apply_position = #{applyPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=DATE},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gaolei.entity.Recruit">
+    update recruit
+    set name = #{name,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      skill = #{skill,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      experience = #{experience,jdbcType=VARCHAR},
+      apply_position = #{applyPosition,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
